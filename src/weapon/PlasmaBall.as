@@ -48,12 +48,10 @@ package weapon
 		
 		override public function update():void {
 			super.update();
-			trace("stageW: " + FlxG.width + " x: " + x);
 			
 			if (x > (FlxG.width + FlxG.camera.scroll.x) ||  x < 0 ||
 				y > (FlxG.height + FlxG.camera.scroll.y) || y < 0) {
-					exists = false;
-					trace(this + "No longer exists");			
+					exists = false;	
 				}
 		}
 		
