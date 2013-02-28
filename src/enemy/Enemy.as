@@ -7,6 +7,14 @@ package enemy
 	public class Enemy extends FlxSprite
 	{
 		
+		public var experience:int = 1;
+		
+		
+		public var chance:int = 20;
+		public var time:int = 25; //ms
+		public var iterations:int = time;
+		public var freeRoam:Boolean = false;
+		public var roamBehavior:Number = 200;
 		public var activated:Boolean = false;
 		protected var movePadX:Number = 0;
 		protected var movePadY:Number = 0;
@@ -40,6 +48,9 @@ package enemy
 		
 		protected function move(speed:Number):void {
 			
+			if (freeRoam && !activated) 
+				roam();
+				
 			if (activated || movePad()) {
 				activated = true;
 				velocity.x = 0;
@@ -60,6 +71,30 @@ package enemy
 			}
 			else
 				activated = false;
+		}
+		
+		override public function kill():void {
+			super.kill();
+			Registry.player.experience += experience;
+		}
+		
+		protected function roam():void {
+			
+			if (iterations >= time) {
+				iterations = 0;
+			
+				if (Math.random() * roamBehavior < roamBehavior / 5)
+					velocity.x = Math.random() * chance;
+				else if (Math.random() * roamBehavior < roamBehavior / 5)
+					velocity.x = -(Math.random() * chance);
+				if (Math.random() * roamBehavior < roamBehavior / 5)
+					velocity.y = Math.random() * chance;
+				else if (Math.random() * roamBehavior < roamBehavior / 5)
+					velocity.y = -(Math.random() * chance);
+			}
+			else
+				iterations++;
+			
 		}
 		
 		/** If movePadX or movePadY has a greater value than 0 then if the player is within that padding the entity will move 

@@ -33,7 +33,7 @@ package weapon
 		private static function playerBulletOverlap(b:*, e:Enemy):void {
 			e.flicker(.25);
 			e.hurt(1);
-			b.exists = false;
+//			b.exists = false;
 		}
 		
 		public static function destroy():void {

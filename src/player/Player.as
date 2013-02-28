@@ -11,6 +11,7 @@ package player
 	public class Player extends FlxSprite
 	{
 		
+		public var experience:int = 0;
 		private var speed:Number = 100;
 		public var direction:uint;
 		

@@ -19,6 +19,9 @@ package enemy
 			
 			health = 1;
 			immovable = true;			
+			freeRoam = true;
+			experience = 3;
+			
 			Groups.bats.add(this);
 			
 			movePadX = 100;

@@ -26,8 +26,8 @@ package weapon
 			velocity.x = 0;
 			velocity.y = 0;
 			
-			x = Registry.player.x + (Registry.player.width / 2);
-			y = Registry.player.y + (Registry.player.height / 2);
+			x = Registry.player.x + (Registry.player.width/12);
+			y = Registry.player.y + (Registry.player.height/6);
 			
 			switch(Registry.player.direction) {
 				case FlxObject.UP:

@@ -9,6 +9,7 @@ package state
 	import org.flixel.FlxSound;
 	import org.flixel.FlxText;
 	import org.flixel.FlxState; 
+	import player.Hud;
 	import player.Player;
 	import weapon.Weapon;
 	
@@ -35,6 +36,7 @@ package state
 			super.create();	
 			layers();			
 			Groups.create();
+			Hud.create();
 			music(true);
 		}
 		
@@ -60,10 +62,6 @@ package state
 				FlxG.music.loadEmbedded(Embed.music_interlude, true, false);
 				FlxG.music.volume = .5;
 				FlxG.music.play();			
-			}
-			else {
-				FlxG.music.stop();
-				FlxG.music = null;
 			}
 		}
 		
@@ -99,6 +97,7 @@ package state
 			World.update();
 			Registry.stateSwitch();
 			collision();
+			Hud.update();			
 		}
 		
 		override public function draw():void {
@@ -116,12 +115,12 @@ package state
 		
 		override public function destroy():void {
 			super.destroy();
-			music(false);
 			Registry.player = null;
 			World.destroy();
 			Weapon.destroy();
 			Groups.destroy();
 			Dialog.destroy();
+			Hud.destroy();
 		}
 		
 	}//class
