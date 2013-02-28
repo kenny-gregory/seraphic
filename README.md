@@ -1,7 +1,7 @@
 seraphic
 ========
 
-<h3>NES style top down RPG w/ Flixel 
+<h3>NES style top down RPG w/ Flixel <br><br>
 
 <img src="http://www.legitcode.com/seraphic.png" />
 <br><br>
