@@ -43,7 +43,7 @@ package
 		[Embed(source = "../gfx/bat1.png")] public static const bat1:Class;
 		
 		// npc
-		
+		[Embed(source = "../gfx/princess1.png")] public static const princess1:Class;
 		
 		// map
 		[Embed(source = "../gfx/lostgarden.png")] public static const lostgarden:Class;

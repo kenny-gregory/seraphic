@@ -11,6 +11,7 @@ package state
 	import weapon.Weapon;
 	
 	import enemy.*;
+	import npc.*;
 	import org.flixel.FlxTilemap;
 	
 	public class PlayState extends FlxState
@@ -26,8 +27,8 @@ package state
 		
 		override public function create():void {
 			super.create();	
+			layers();			
 			Groups.create();
-			layers();
 		}
 		
 		private function layers():void {
@@ -54,15 +55,10 @@ package state
 		}
 		
 		private function collision():void {
-			FlxG.collide(Registry.player, Groups.enemy, enemyCollision);
+			FlxG.collide(Registry.player, Groups.enemy, Collision.enemyCollision);
+			FlxG.collide(Registry.player, Groups.npc, Collision.npcCollision);
 			FlxG.collide(Registry.player, Registry.level.hitTilemaps, null);			
 		}
-		
-		private function enemyCollision(p:Player, e:*):void {
-			p.flicker(.25);
-			p.hurt(1);
-//			p.knockBack(500);
-		}		
 		
 		override public function destroy():void {
 			super.destroy();

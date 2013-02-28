@@ -18,6 +18,7 @@ package enemy
 			addAnimation("up", [9, 10, 11], 10.000, true);
 			health = 3;
 			immovable = true;			
+			
 			Groups.wizards.add(this);
 			
 			movePadX = 75;

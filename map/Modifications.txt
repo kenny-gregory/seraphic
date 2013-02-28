@@ -1,5 +1,7 @@
 	BaseLevel.as
 	
+	import player.Player;	
+	
 		public function addSpriteToLayer(obj:FlxSprite, type:Class, layer:FlxGroup, xpos:Number, ypos:Number, angle:Number, scrollX:Number, scrollY:Number, flipped:Boolean = false, scaleX:Number = 1, scaleY:Number = 1, properties:Array = null, onAddCallback:Function = null):FlxSprite
 		{
 			if( obj == null )
@@ -39,11 +41,12 @@
 		
 	Level.as
 	
-		import enemy.*;
-		import player.Player;
-		import state.PlayState;
+	import enemy.*;
+	import npc.*;
+	import player.Player;
+	import state.PlayState;
 	
-			override public function createObjects(onAddCallback:Function = null, parentObject:Object = null):void
+		override public function createObjects(onAddCallback:Function = null, parentObject:Object = null):void
 		{
 			addPathsForLayerPaths(onAddCallback);
 			addSpritesForLayerSprites(onAddCallback);

@@ -5,6 +5,7 @@ package
 	import org.flixel.*;
 	import flash.utils.Dictionary;
 	import player.Player;
+	
 	public class BaseLevel
 	{
 		// The masterLayer contains every single object in this group making it easy to empty the level.
@@ -47,12 +48,14 @@ package
 				onAddCallback(map, null, this, scrollX, scrollY, properties);
 			return map;
 		}
-
+		
 		public function addSpriteToLayer(obj:FlxSprite, type:Class, layer:FlxGroup, xpos:Number, ypos:Number, angle:Number, scrollX:Number, scrollY:Number, flipped:Boolean = false, scaleX:Number = 1, scaleY:Number = 1, properties:Array = null, onAddCallback:Function = null):FlxSprite
 		{
 			if( obj == null )
 				obj = new type(xpos, ypos);
 				
+			// Modification
+			
 			if (type == Player)
 				Registry.player = obj as Player;
 				
@@ -81,7 +84,7 @@ package
 			callbackNewData(obj, onAddCallback, layer, properties, scrollX, scrollY, false);
 			return obj;
 		}
-
+		
 		public function addTextToLayer(textdata:TextData, layer:FlxGroup, scrollX:Number, scrollY:Number, embed:Boolean, properties:Array, onAddCallback:Function ):FlxText
 		{
 			var textobj:FlxText = new FlxText(textdata.x, textdata.y, textdata.width, textdata.text, embed);
