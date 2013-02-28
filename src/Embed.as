@@ -51,6 +51,12 @@ package
 		// player
 		[Embed(source = "../gfx/hero.png")] public static const hero:Class;
 		
+		// music
+		[Embed(source = "../music/interlude.mp3")] public static const music_interlude:Class;
+		
+		// sfx
+		[Embed(source = "../sfx/textsfx.mp3")] public static const textsfx:Class;
+		
 		//levels
 		Level1;
 		Level2;

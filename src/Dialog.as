@@ -4,11 +4,14 @@ package
 	import flash.events.Event;
 	import org.flixel.FlxG;
 	import org.flixel.FlxPoint;
+	import org.flixel.FlxSound;
 	import org.flixel.FlxText;
 	import state.PlayState;
 
 	public class Dialog 
 	{
+		public static var text_sfx:FlxSound;
+		
 		public static var loop:Boolean;
 		public static var index:int = 0;
 		public static var position:int = 0;
@@ -24,7 +27,12 @@ package
 		private static var moreTextToDisplay:Boolean = false;
 		
 		
-		public static function write(text:Array, method:String="single", repeat:Boolean = true):void {			
+		public static function write(text:Array, method:String="single", repeat:Boolean = true, render:Boolean = true):void {			
+			
+			if (!text_sfx) {
+				text_sfx = new FlxSound;
+				text_sfx.loadEmbedded(Embed.textsfx, false, false);
+			}
 			
 			loop = repeat;
 			behavior = method;
@@ -44,7 +52,7 @@ package
 			
 			if(!multipleTextArrays) {
 			
-				textfield = new FlxText(50, 50, (text[0].length * fontSize), "", false);
+				textfield = new FlxText(50, 25, (FlxG.width * .75), "", false);
 				(FlxG.state as PlayState).layer6.add(textfield);
 				textfield.scrollFactor = new FlxPoint(0, 0);		
 				
@@ -71,7 +79,7 @@ package
 			else
 				textArray = multipleTextArrays[0];
 			FlxG.stage.addEventListener(Event.ENTER_FRAME, update, false, 0, true);	
-			(FlxG.state as PlayState).pause(true, new Array(textfield));
+			(FlxG.state as PlayState).pause(render,  new Array(textfield));
 		}
 		
 		public static function update(e:Event):void {
@@ -79,6 +87,7 @@ package
 				if(textArray) {
 					if (index < textArray.length) {
 						textfield.text += textArray[index];
+						text_sfx.play(false);
 						index++;
 					}
 					else { 				
@@ -102,6 +111,14 @@ package
 			index = 0;
 		}
 		
+		private static function setTextFieldBounds():void {
+			for(var i:int = 0; i < textArray.length; i++) {
+				if (textfield.width > FlxG.width) {
+					textfield.height += fontSize;
+				}		
+			}
+		}
+		
 		public static function next():void {
 			switch(behavior) {
 				case "multiple":
@@ -114,7 +131,7 @@ package
 						
 					textfield.text = "";				
 					textArray = multipleTextArrays[position];
-					textfield.width = textArray.length * fontSize;					
+					setTextFieldBounds();			
 					break;
 					
 				default:

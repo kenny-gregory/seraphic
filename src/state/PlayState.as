@@ -6,6 +6,7 @@ package state
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxObject;
 	import org.flixel.FlxRect;
+	import org.flixel.FlxSound;
 	import org.flixel.FlxText;
 	import org.flixel.FlxState; 
 	import player.Player;
@@ -34,6 +35,7 @@ package state
 			super.create();	
 			layers();			
 			Groups.create();
+			music(true);
 		}
 		
 		private function layers():void {
@@ -50,6 +52,19 @@ package state
 			add(layer4);
 			add(layer5);
 			add(layer6);
+		}
+		
+		private function music(on:Boolean):void {
+			if(on) {
+				FlxG.music = new FlxSound;
+				FlxG.music.loadEmbedded(Embed.music_interlude, true, false);
+				FlxG.music.volume = .5;
+				FlxG.music.play();			
+			}
+			else {
+				FlxG.music.stop();
+				FlxG.music = null;
+			}
 		}
 		
 		public function pause(doRender:Boolean, updateItems:Array):void {	
@@ -101,6 +116,7 @@ package state
 		
 		override public function destroy():void {
 			super.destroy();
+			music(false);
 			Registry.player = null;
 			World.destroy();
 			Weapon.destroy();

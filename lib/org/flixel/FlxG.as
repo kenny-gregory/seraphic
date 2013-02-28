@@ -525,9 +525,9 @@ package org.flixel
 			}
 			var sound:FlxSound = sounds.recycle(FlxSound) as FlxSound;
 			if(EmbeddedSound != null)
-				sound.loadEmbedded(EmbeddedSound,Looped,AutoDestroy);
+				sound.loadEmbedded(EmbeddedSound,Looped);
 			else
-				sound.loadStream(URL,Looped,AutoDestroy);
+				sound.loadStream(URL,Looped);
 			sound.volume = Volume;
 			if(AutoPlay)
 				sound.play();
@@ -655,8 +655,8 @@ package org.flixel
 			while(i < l)
 			{
 				sound = sounds.members[i++] as FlxSound;
-				if((sound != null) && sound.exists)
-					sound.resume();
+				if((sound != null) && sound.exists) {}
+//					sound.resume();
 			}
 		}
 		
