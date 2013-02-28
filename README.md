@@ -13,5 +13,5 @@ This is a very new repository. So what you see is a early stage of development o
 
 
 <img src="http://www.legitcode.com/seraphic.png" />
-<br/><br/><br/><b><h2>- ./pr4nq</h2></b><br/>
-<br/><br/>
+<br/><br/><br/><b><h2>./pr4nq</h2></b><br/>
+<br/><br/><b><h1>EOF</h2></b>
