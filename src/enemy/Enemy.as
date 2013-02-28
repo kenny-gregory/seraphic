@@ -16,8 +16,6 @@ package enemy
 			super(X, Y, SimpleGraphic);
 		}
 		
-		
-		
 		/** Force entity to remain inside the world bounds */
 		
 		protected function worldBounds():void {

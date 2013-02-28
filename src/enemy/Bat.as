@@ -16,6 +16,7 @@ package enemy
 			addAnimation("left", [3, 4, 5], 10.000, true);
 			addAnimation("right", [6, 7], 10.000, true);
 			addAnimation("up", [9, 10, 11], 10.000, true);
+			
 			health = 1;
 			immovable = true;			
 			Groups.bats.add(this);

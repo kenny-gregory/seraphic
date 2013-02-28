@@ -58,29 +58,25 @@ package state
 			if (!pausedGroup)
 				pausedGroup = new FlxGroup;
 			
-			for each(var item:FlxObject in updateItems) {
+			for each(var item:FlxObject in updateItems) 
 				pausedGroup.add(item);
-			}
 				
 			paused = !paused;
-			trace("paused: " + pause);
 			updateItems = null;
 		}
 		
 		public function unpause():void {
-			if (Dialog.active) {
-				Dialog.waitingOnUserInput = false;				
-				Dialog.resume();
-			}
-			else {
-				pausedGroup.members.splice(0);
-				paused = !paused;
-			}
+			pausedGroup.members.splice(0);
+			paused = !paused;
 		}
 		
 		override public function update():void {
-			if (FlxG.keys.justPressed("ENTER"))
-				unpause();
+			if (FlxG.keys.justPressed("ENTER")) {
+				if (Dialog.active) {
+					Dialog.waitingOnUserInput = false;				
+					Dialog.resume();
+				}				
+			}
 			if (paused)
 				return pausedGroup.update();
 				

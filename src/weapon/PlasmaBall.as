@@ -5,13 +5,14 @@ package weapon
 	import org.flixel.FlxSprite;
 	import state.*;
 
-	public class PlasmaBall extends FlxSprite
+	public class PlasmaBall extends Bullet
 	{
 		
 		public var speed:Number = 500;
 		
-		public function PlasmaBall() 
+		public function PlasmaBall(X:Number = 0, Y:Number = 0, SimpleGraphic:Class = null) 
 		{
+			super(X, Y, SimpleGraphic);
 			loadGraphic(Embed.plasmaballlpc_0, true, false, 32, 32, false);
 			addAnimation("shoot", [0, 1, 2], 10, true);
 			addAnimation("collide", [3], 0, false);

@@ -1,6 +1,6 @@
 package weapon 
 {
-	import enemy.Wizard;
+	import enemy.*;
 	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxObject;
@@ -28,14 +28,14 @@ package weapon
 					b.shoot();
 				}
 			}
-			if(Groups.wizards && playerBullets && playerBullets.getFirstExtant())
-				FlxG.overlap(playerBullets, Groups.wizards, null, playerBulletOverlap);
+			if(Groups.enemy && playerBullets && playerBullets.getFirstExtant())
+				FlxG.overlap(playerBullets, Groups.enemy, null, playerBulletOverlap);
 		}
 		
-		private static function playerBulletOverlap(pB:*, w:Wizard):void {
-			w.flicker(.25);
-			w.hurt(1);
-			pB.exists = false;
+		private static function playerBulletOverlap(b:*, e:Enemy):void {
+			e.flicker(.25);
+			e.hurt(1);
+			b.exists = false;
 		}
 		
 		public static function destroy():void {

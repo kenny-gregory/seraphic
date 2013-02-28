@@ -24,7 +24,7 @@ package
 		private static var moreTextToDisplay:Boolean = false;
 		
 		
-		public static function write(text:Array, method:String="normal", repeat:Boolean = true):void {			
+		public static function write(text:Array, method:String="single", repeat:Boolean = true):void {			
 			
 			loop = repeat;
 			behavior = method;
@@ -33,6 +33,8 @@ package
 				case "multiple":
 					multiDialog = true;
 					break;
+				case "single":
+					multiDialog = false;
 					
 				default:
 					break;		
@@ -64,27 +66,22 @@ package
 				next();
 				
 				
-			if (behavior == "multiple") {
-				trace("multiple");
+			if (behavior == "multiple") 
 				textArray = multipleTextArrays[position];
-			}
 			else
 				textArray = multipleTextArrays[0];
 			FlxG.stage.addEventListener(Event.ENTER_FRAME, update, false, 0, true);	
 			(FlxG.state as PlayState).pause(true, new Array(textfield));
-			trace("pausing");
 		}
 		
 		public static function update(e:Event):void {
 			if (!waitingOnUserInput) {
-				trace("updating");
 				if(textArray) {
 					if (index < textArray.length) {
 						textfield.text += textArray[index];
 						index++;
 					}
 					else { 				
-						trace("waiting on user input");
 						waitingOnUserInput = true;
 						index = 0;
 					}
@@ -99,10 +96,10 @@ package
 			if (multiDialog) 
 				clear();
 			else {
-				trace("resuming");
 				waitingOnUserInput = false;		
 				next();
 			}
+			index = 0;
 		}
 		
 		public static function next():void {
@@ -112,15 +109,14 @@ package
 						if(loop)
 							position = 0;
 					}
-					else {
-						trace("position/multiple.len: " + position + "," + multipleTextArrays.length);
+					else 
 						position++;
-					}
+						
 					textfield.text = "";				
 					textArray = multipleTextArrays[position];
 					textfield.width = textArray.length * fontSize;					
-					return;
 					break;
+					
 				default:
 					if (multipleTextArrays.length > 1) {
 						textfield.text = "";
@@ -150,13 +146,13 @@ package
 		
 		
 		public static function destroy():void {
-			clear();
 			if(textfield)
 				textfield = null;
 			if(multipleTextArrays) {
 				multipleTextArrays.splice(0, multipleTextArrays.length);
 				multipleTextArrays = null;
 			}
+			index = position = 0;
 		}
 		
 		
