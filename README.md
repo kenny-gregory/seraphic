@@ -1,7 +1,7 @@
 Seraphic: Opensource, AS3, FlashDevelop, RPG (NES era+)
 ========
 
-<br>News:</b>
+<br><b><h1>News:</h1></b>
 <p>
 This is a very new repository. So what you see is a early stage of development on this project. 
 </p>
