@@ -4,9 +4,10 @@ package
 {
 	import org.flixel.*;
 	import flash.utils.Dictionary;
-	import state.PlayState;
 	import enemy.*;
 	import player.Player;
+	import state.PlayState;
+	
 	
 	public class Level1 extends BaseLevel
 	{
@@ -41,20 +42,17 @@ package
 			properties = generateProperties( null );
 			layerGround = addTilemap( CSV_Ground, Img_Ground, 0.000, 0.000, 20, 20, 1.000, 1.000, false, 1, 1, properties, onAddCallback );
 			properties = generateProperties( null );
-			layerCollide1 = addTilemap( CSV_Collide1, Img_Collide1, 0.000, 0.000, 96, 148, 1.000, 1.000, true, 1, 1, properties, onAddCallback );
+			layerCollide1 = addTilemap( CSV_Collide1, Img_Collide1, 0.000, 0.000, 96, 148, 1.000, 1.000, false, 2, 1, properties, onAddCallback );
 			properties = generateProperties( null );
-			layerCollide2 = addTilemap( CSV_Collide2, Img_Collide2, 0.000, 0.000, 32, 32, 1.000, 1.000, true, 1, 1, properties, onAddCallback );
-				
-			
+			layerCollide2 = addTilemap( CSV_Collide2, Img_Collide2, 0.000, 0.000, 32, 32, 1.000, 1.000, false, 2, 1, properties, onAddCallback );
+
 			//Add layers to the master group in correct order.
 			masterLayer.add(PathsGroup);
 			masterLayer.add(layerGround);
 			masterLayer.add(SpritesGroup);
 			masterLayer.add(layerCollide1);
 			masterLayer.add(layerCollide2);
-			
-			(FlxG.state as PlayState).layer4.add(masterLayer);			
-			
+
 			if ( addToStage )
 				createObjects(onAddCallback, parentObject);
 
@@ -72,6 +70,22 @@ package
 			addPathsForLayerPaths(onAddCallback);
 			addSpritesForLayerSprites(onAddCallback);
 			generateObjectLinks(onAddCallback);
+			
+			parentObject = (FlxG.state as PlayState).layer3;
+			
+			if ( parentObject != null ) {
+				parentObject.add(PathsGroup);
+				parentObject.add(layerGround);
+				
+				var playerLayer:Object = (FlxG.state as PlayState).layer4;
+				playerLayer.add(SpritesGroup);
+				playerLayer.add(layerCollide1);				
+				playerLayer.add(layerCollide2);				
+				
+				playerLayer = null;
+			}
+			else
+				FlxG.state.add(masterLayer);
 		}
 
 		public function addPathsForLayerPaths(onAddCallback:Function = null):void
@@ -82,10 +96,13 @@ package
 
 		public function addSpritesForLayerSprites(onAddCallback:Function = null):void
 		{
-			addSpriteToLayer(null, Wizard, (FlxG.state as PlayState).layer4 , 394.000, 127.000, 0.000, 1, 1, false, 1.000, 1.000, generateProperties( null ), onAddCallback );//"Wizard"
-			addSpriteToLayer(null, Wizard, (FlxG.state as PlayState).layer4 , 133.000, 251.000, 0.000, 1, 1, false, 1.000, 1.000, generateProperties( null ), onAddCallback );//"Wizard"
-			addSpriteToLayer(null, Wizard, (FlxG.state as PlayState).layer4 , 297.000, 32.000, 0.000, 1, 1, false, 1.000, 1.000, generateProperties( null ), onAddCallback );//"Wizard"
-			addSpriteToLayer(null, player.Player, (FlxG.state as PlayState).layer4 , 141.000, 27.000, 0.000, 1, 1, false, 1.000, 1.000, generateProperties( null ), onAddCallback );//"Player"
+			addSpriteToLayer(null, Wizard, SpritesGroup , 394.000, 127.000, 0.000, 1, 1, false, 1.000, 1.000, generateProperties( { name:"type", value:"blue" }, null ), onAddCallback );//"Wizard"
+			addSpriteToLayer(null, Wizard, SpritesGroup , 133.000, 251.000, 0.000, 1, 1, false, 1.000, 1.000, generateProperties( { name:"type", value:"blue" }, null ), onAddCallback );//"Wizard"
+			addSpriteToLayer(null, Wizard, SpritesGroup , 297.000, 32.000, 0.000, 1, 1, false, 1.000, 1.000, generateProperties( { name:"type", value:"blue" }, null ), onAddCallback );//"Wizard"
+			addSpriteToLayer(null, player.Player, SpritesGroup , 141.000, 27.000, 0.000, 1, 1, false, 1.000, 1.000, generateProperties( null ), onAddCallback );//"Player"
+			addSpriteToLayer(null, Bat, SpritesGroup , 312.000, 249.000, 0.000, 1, 1, false, 1.000, 1.000, generateProperties( null ), onAddCallback );//"Bat1"
+			addSpriteToLayer(null, Bat, SpritesGroup , 227.000, 409.000, 0.000, 1, 1, false, 1.000, 1.000, generateProperties( null ), onAddCallback );//"Bat1"
+			addSpriteToLayer(null, Bat, SpritesGroup , 487.000, 263.000, 0.000, 1, 1, false, 1.000, 1.000, generateProperties( null ), onAddCallback );//"Bat1"
 		}
 
 		public function generateObjectLinks(onAddCallback:Function = null):void

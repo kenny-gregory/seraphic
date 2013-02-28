@@ -40,6 +40,10 @@ package
 		
 		// enemy
 		[Embed(source = "../gfx/bluewizard.png")] public static const blueWizard:Class;
+		[Embed(source = "../gfx/bat1.png")] public static const bat1:Class;
+		
+		// npc
+		
 		
 		// map
 		[Embed(source = "../gfx/lostgarden.png")] public static const lostgarden:Class;

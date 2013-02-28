@@ -1,0 +1,67 @@
+	BaseLevel.as
+	
+		public function addSpriteToLayer(obj:FlxSprite, type:Class, layer:FlxGroup, xpos:Number, ypos:Number, angle:Number, scrollX:Number, scrollY:Number, flipped:Boolean = false, scaleX:Number = 1, scaleY:Number = 1, properties:Array = null, onAddCallback:Function = null):FlxSprite
+		{
+			if( obj == null )
+				obj = new type(xpos, ypos);
+				
+			// Modification
+			
+			if (type == Player)
+				Registry.player = obj as Player;
+				
+			obj.x += obj.offset.x;
+			obj.y += obj.offset.y;
+			obj.angle = angle;
+			if ( scaleX != 1 || scaleY != 1 )
+			{
+				obj.scale.x = scaleX;
+				obj.scale.y = scaleY;
+				obj.width *= scaleX;
+				obj.height *= scaleY;
+				// Adjust the offset, in case it was already set.
+				var newFrameWidth:Number = obj.frameWidth * scaleX;
+				var newFrameHeight:Number = obj.frameHeight * scaleY;
+				var hullOffsetX:Number = obj.offset.x * scaleX;
+				var hullOffsetY:Number = obj.offset.y * scaleY;
+				obj.offset.x -= (newFrameWidth- obj.frameWidth) / 2;
+				obj.offset.y -= (newFrameHeight - obj.frameHeight) / 2;
+			}
+			if( obj.facing == FlxObject.RIGHT )
+				obj.facing = flipped ? FlxObject.LEFT : FlxObject.RIGHT;
+			obj.scrollFactor.x = scrollX;
+			obj.scrollFactor.y = scrollY;
+			layer.add(obj);
+			callbackNewData(obj, onAddCallback, layer, properties, scrollX, scrollY, false);
+			return obj;
+		}
+		
+		
+	Level.as
+	
+		import enemy.*;
+		import player.Player;
+		import state.PlayState;
+	
+			override public function createObjects(onAddCallback:Function = null, parentObject:Object = null):void
+		{
+			addPathsForLayerPaths(onAddCallback);
+			addSpritesForLayerSprites(onAddCallback);
+			generateObjectLinks(onAddCallback);
+			
+			parentObject = (FlxG.state as PlayState).layer3;
+			
+			if ( parentObject != null ) {
+				parentObject.add(PathsGroup);
+				parentObject.add(layerGround);
+				
+				var playerLayer:Object = (FlxG.state as PlayState).layer4;
+				playerLayer.add(SpritesGroup);
+				playerLayer.add(layerCollide1);				
+				playerLayer.add(layerCollide2);				
+				
+				playerLayer = null;
+			}
+			else
+				FlxG.state.add(masterLayer);
+		}

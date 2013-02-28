@@ -50,7 +50,6 @@ package
 
 		public function addSpriteToLayer(obj:FlxSprite, type:Class, layer:FlxGroup, xpos:Number, ypos:Number, angle:Number, scrollX:Number, scrollY:Number, flipped:Boolean = false, scaleX:Number = 1, scaleY:Number = 1, properties:Array = null, onAddCallback:Function = null):FlxSprite
 		{
-			
 			if( obj == null )
 				obj = new type(xpos, ypos);
 				
@@ -154,6 +153,5 @@ package
 			}
 			shapes = null;
 		}
-
 	}
 }
