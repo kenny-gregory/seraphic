@@ -14,8 +14,7 @@ package
 //			p.knockBack(500);
 		}		
 		
-		public static function npcCollision(p:Player, n:NPC):void {
-			trace("npc: " + n);
+		public static function npcCollision(p:Player, n:*):void {
 			n.showDialog();
 		}
 		

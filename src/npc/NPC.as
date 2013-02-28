@@ -18,13 +18,6 @@ package npc
 			super.update();
 		}
 		
-		public function showDialog():void {
-			if (!dialogActive) {
-				dialogActive = true;
-				Dialog.write("hello you are a champion!");
-			}
-		}
-		
 		override public function destroy():void {
 			super.destroy();
 		}

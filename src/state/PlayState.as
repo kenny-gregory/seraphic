@@ -4,6 +4,7 @@ package state
 	import org.flixel.FlxCamera;
 	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
+	import org.flixel.FlxObject;
 	import org.flixel.FlxRect;
 	import org.flixel.FlxText;
 	import org.flixel.FlxState; 
@@ -16,6 +17,10 @@ package state
 	
 	public class PlayState extends FlxState
 	{
+		
+		public var render:Boolean = true;
+		public var paused:Boolean = false;
+		public var pausedGroup:FlxGroup;
 		
 		public var level:Object;
 		public var layer1:FlxGroup;
@@ -47,11 +52,43 @@ package state
 			add(layer6);
 		}
 		
+		public function pause(doRender:Boolean, updateItems:Array):void {
+			
+			render = doRender;
+			if (!pausedGroup)
+				pausedGroup = new FlxGroup;
+			for each(var item:FlxObject in updateItems)
+				pausedGroup.add(item);
+				
+			paused = !paused;
+			updateItems = null;
+		}
+		
+		public function unpause():void {
+			if (Dialog.active)
+				Dialog.clear();
+			pausedGroup.members.splice(0);
+			paused = !paused;
+		}
+		
 		override public function update():void {
+			if (FlxG.keys.justPressed("ENTER"))
+				if (paused)
+					unpause();
+			if (paused)
+				return pausedGroup.update();
+				
 			super.update();		
 			World.update();
 			Registry.stateSwitch();
 			collision();
+		}
+		
+		override public function draw():void {
+			if (paused && !render)
+				return pausedGroup.draw();
+				
+			super.draw();
 		}
 		
 		private function collision():void {
