@@ -24,9 +24,7 @@ package weapon
 					b = new currentWeapon;
 					playerBullets.add(b);
 				}
-				else {
-					b.shoot();
-				}
+				b.shoot();
 			}
 			if(Groups.enemy && playerBullets && playerBullets.getFirstExtant())
 				FlxG.overlap(playerBullets, Groups.enemy, null, playerBulletOverlap);
