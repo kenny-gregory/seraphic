@@ -1,6 +1,11 @@
 Seraphic: Opensource, AS3, FlashDevelop, RPG (NES era+)
 ========
 
+<br>News:</b>
+<p>
+This is a very new repository. So what you see is a early stage of development on this project. 
+</p>
+<br/>
 <h4><b>[</b>NES style top down RPG w/ Flixel<b>]</b></h4> 
 <p>Anyone who wants to participate email me: kenny@psycode.us</p>
 <br><br>
