@@ -51,6 +51,9 @@ package
 		// player
 		[Embed(source = "../gfx/hero.png")] public static const hero:Class;
 		
+		// hud
+		[Embed(source = "../gfx/heart.png")] public static const lifeHeart:Class;
+		
 		// music
 		[Embed(source = "../music/interlude.mp3")] public static const music_interlude:Class;
 		

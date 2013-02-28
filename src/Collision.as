@@ -11,7 +11,7 @@ package
 		public static function enemyCollision(p:Player, e:Enemy):void {
 			p.flicker(.25);
 			p.hurt(1);
-//			p.knockBack(500);
+//			p.knockBack(1000);
 		}		
 		
 		public static function npcCollision(p:Player, n:*):void {

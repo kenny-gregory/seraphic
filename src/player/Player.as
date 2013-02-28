@@ -27,12 +27,12 @@ package player
 			addAnimation("stand", [18], 0, false);
 			play("stand");
 			
-			
 			health = 100;
-			direction = FlxObject.DOWN;
+			direction = FlxObject.DOWN;		
 		}
 		
 		override public function update():void {
+			Hud.create();	
 			super.update();			
 			movement();
 			Weapon.player(PlasmaBall);
@@ -40,7 +40,7 @@ package player
 			worldBounds();			
 		}
 		
-		public function knockBack(force:int):void {
+		public function knockBack(force:Number):void {
 			switch(direction) {
 				case FlxObject.UP:
 					velocity.y = force;
@@ -100,6 +100,7 @@ package player
 			if ((y + height) > FlxG.worldBounds.height)
 				y = FlxG.worldBounds.height - height;				
 		}
+		
 		
 		private function animation():void {		
 			if (velocity.x < 0) {					

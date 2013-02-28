@@ -36,7 +36,6 @@ package state
 			super.create();	
 			layers();			
 			Groups.create();
-			Hud.create();
 			music(true);
 		}
 		
