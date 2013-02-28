@@ -7,8 +7,7 @@ package
 	import enemy.*;
 	import npc.*;
 	import player.Player;
-	import state.PlayState;
-	
+	import state.PlayState;	
 	
 	public class Level1 extends BaseLevel
 	{
@@ -65,7 +64,7 @@ package
 			boundsMax = new FlxPoint(11520, 17316);
 			bgColor = 0xff777777;
 		}
-		
+	
 		override public function createObjects(onAddCallback:Function = null, parentObject:Object = null):void
 		{
 			addPathsForLayerPaths(onAddCallback);
@@ -104,7 +103,7 @@ package
 			addSpriteToLayer(null, Bat, SpritesGroup , 312.000, 249.000, 0.000, 1, 1, false, 1.000, 1.000, generateProperties( null ), onAddCallback );//"Bat1"
 			addSpriteToLayer(null, Bat, SpritesGroup , 227.000, 409.000, 0.000, 1, 1, false, 1.000, 1.000, generateProperties( null ), onAddCallback );//"Bat1"
 			addSpriteToLayer(null, Bat, SpritesGroup , 487.000, 263.000, 0.000, 1, 1, false, 1.000, 1.000, generateProperties( null ), onAddCallback );//"Bat1"
-			addSpriteToLayer(null, Princess, SpritesGroup , 378.000, 494.000, 0.000, 1, 1, false, 1.000, 1.000, generateProperties( null ), onAddCallback );//"Princess1"
+			addSpriteToLayer(null, Princess, SpritesGroup , 27.000, 16.000, 0.000, 1, 1, false, 1.000, 1.000, generateProperties( null ), onAddCallback );//"Princess1"
 		}
 
 		public function generateObjectLinks(onAddCallback:Function = null):void

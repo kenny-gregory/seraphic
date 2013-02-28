@@ -52,29 +52,35 @@ package state
 			add(layer6);
 		}
 		
-		public function pause(doRender:Boolean, updateItems:Array):void {
-			
+		public function pause(doRender:Boolean, updateItems:Array):void {	
 			render = doRender;
+			
 			if (!pausedGroup)
 				pausedGroup = new FlxGroup;
-			for each(var item:FlxObject in updateItems)
+			
+			for each(var item:FlxObject in updateItems) {
 				pausedGroup.add(item);
+			}
 				
 			paused = !paused;
+			trace("paused: " + pause);
 			updateItems = null;
 		}
 		
 		public function unpause():void {
-			if (Dialog.active)
-				Dialog.clear();
-			pausedGroup.members.splice(0);
-			paused = !paused;
+			if (Dialog.active) {
+				Dialog.waitingOnUserInput = false;				
+				Dialog.resume();
+			}
+			else {
+				pausedGroup.members.splice(0);
+				paused = !paused;
+			}
 		}
 		
 		override public function update():void {
 			if (FlxG.keys.justPressed("ENTER"))
-				if (paused)
-					unpause();
+				unpause();
 			if (paused)
 				return pausedGroup.update();
 				
@@ -103,6 +109,7 @@ package state
 			World.destroy();
 			Weapon.destroy();
 			Groups.destroy();
+			Dialog.destroy();
 		}
 		
 	}//class

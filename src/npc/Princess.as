@@ -24,8 +24,9 @@ package npc
 		}
 		
 		public function showDialog():void {
-			if (!Dialog.active) 
-				Dialog.write("hello you are a champion!");
+			if (!Dialog.active) {
+				Dialog.write(new Array("hello you are a champion!", "can i assist you?", "what are you looking at", "i dont know what you mean"), "multiple", false);
+			}
 		}	
 		
 		override public function destroy():void {
