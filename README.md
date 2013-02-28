@@ -1,4 +1,4 @@
-seraphic
+Seraphic: Opensource, AS3, FlashDevelop, RPG (NES era+)
 ========
 
 <h3>NES style top down RPG w/ Flixel <br><br>
