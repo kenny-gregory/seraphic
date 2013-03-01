@@ -1,6 +1,7 @@
 package state 
 {
 	
+	import flash.display.Bitmap;
 	import org.flixel.FlxCamera;
 	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
@@ -16,6 +17,7 @@ package state
 	import enemy.*;
 	import npc.*;
 	import org.flixel.FlxTilemap;
+	import org.flixel.plugin.photonstorm.*;
 	
 	public class PlayState extends FlxState
 	{
@@ -107,9 +109,27 @@ package state
 		}
 		
 		private function collision():void {
-			FlxG.collide(Registry.player, Groups.enemy, Collision.enemyCollision);
-			FlxG.collide(Registry.player, Groups.npc, Collision.npcCollision);
+			
+			if (FlxCollision.pixelPerfectCheck(Registry.player, Groups.npc.members[0], 255, FlxG.camera)) {
+				Registry.player.x = Registry.player.last.x;
+				Registry.player.y = Registry.player.last.y;
+				Collision.npcCollision(Registry.player, Groups.npc.members[0]);
+			}
+			for each(var b:Enemy in Groups.bats.members) {
+				if (FlxCollision.pixelPerfectCheck(Registry.player, b, 255, FlxG.camera)) {
+					Collision.enemyCollision(Registry.player, b);					
+				}
+			}
+			for each(var w:Enemy in Groups.wizards.members) {
+				if (FlxCollision.pixelPerfectCheck(Registry.player, w, 255, FlxG.camera)) {		
+					Collision.enemyCollision(Registry.player, w);					
+				}
+			}			
+			
+			//FlxG.collide(Registry.player, Groups.enemy, Collision.enemyCollision);
+			//FlxG.collide(Registry.player, Groups.npc, Collision.npcCollision);
 			FlxG.collide(Registry.player, Registry.level.hitTilemaps, null);			
+			
 		}
 		
 		override public function destroy():void {

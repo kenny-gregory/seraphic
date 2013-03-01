@@ -42,9 +42,9 @@ package
 			properties = generateProperties( null );
 			layerGround = addTilemap( CSV_Ground, Img_Ground, 0.000, 0.000, 20, 20, 1.000, 1.000, false, 1, 1, properties, onAddCallback );
 			properties = generateProperties( null );
-			layerCollide1 = addTilemap( CSV_Collide1, Img_Collide1, 0.000, 0.000, 96, 148, 1.000, 1.000, false, 2, 1, properties, onAddCallback );
+			layerCollide1 = addTilemap( CSV_Collide1, Img_Collide1, 0.000, 0.000, 96, 148, 1.000, 1.000, true, 2, 1, properties, onAddCallback );
 			properties = generateProperties( null );
-			layerCollide2 = addTilemap( CSV_Collide2, Img_Collide2, 0.000, 0.000, 32, 32, 1.000, 1.000, false, 2, 1, properties, onAddCallback );
+			layerCollide2 = addTilemap( CSV_Collide2, Img_Collide2, 0.000, 0.000, 32, 32, 1.000, 1.000, true, 2, 1, properties, onAddCallback );
 
 			//Add layers to the master group in correct order.
 			masterLayer.add(PathsGroup);

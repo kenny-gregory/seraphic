@@ -39,7 +39,9 @@ package player
 		}
 		
 		public static function destroy():void {
-			
+			expText = null;
+			healthText = null;
+			created = false;
 		}
 		
 	}//class

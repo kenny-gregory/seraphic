@@ -6,6 +6,7 @@ package player
 	import org.flixel.FlxObject;
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxTilemap;
+	import state.OverState;
 	import weapon.*;
 
 	public class Player extends FlxSprite
@@ -55,6 +56,11 @@ package player
 					velocity.x = -force;
 					break;
 			}		
+		}
+		
+		override public function kill():void {
+			super.kill();
+			FlxG.switchState(new OverState);
 		}
 		
 		private function movement():void {
