@@ -1,4 +1,4 @@
-<center><img src="http://www.legitcode.com/title.png" /></center><br>
+<center><img src="http://www.legitcode.com/title.png"></center><br>
 <h3><bold>Contact: </bold></h3> 
 <p>kenny@psycode.us (please contact me if you are wanting to become a contributer!)</p>
 <br>
