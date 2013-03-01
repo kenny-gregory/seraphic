@@ -6,7 +6,7 @@
 <p>
 -Updated the project in the past couple days with lots of new content check it out! View the commits for details.
 <br/>-This is a very new repository. So what you see is a early stage of development on this project. 
-</p>
+</p><br/>
 <h3><bold>Environment: </h3></bold>
 <p>Opensource, AS3, FlashDevelop, RPG (Typical NES/SNES era)</p>
 <br>
