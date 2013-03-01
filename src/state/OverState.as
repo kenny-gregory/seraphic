@@ -1,6 +1,7 @@
 package state 
 {
 	
+	import org.flixel.FlxButton;
 	import org.flixel.FlxG;
 	import org.flixel.FlxSound;
 	import org.flixel.FlxState;
@@ -9,10 +10,13 @@ package state
 	public class OverState extends FlxState
 	{
 		
+		private var overText:FlxText;
+		
 		override public function create():void {
 			super.create();
-			var text:FlxText = new FlxText(50, 50, 100, "OverState", true);
-			add(text);			
+			overText = new FlxText(FlxG.width / 2 - (FlxG.width / 2), FlxG.height / 3, FlxG.width, "GAME OVER", false);
+			overText.setFormat("Terminal", 18, 0xffffff, "center", 0xff333333);
+			add(overText);
 			music();
 		}
 		
@@ -23,13 +27,19 @@ package state
 			FlxG.music.play();			
 		}				
 		
+		private function musicComplete():void {
+			FlxG.switchState(new MenuState);
+		}
+		
 		override public function update():void {
 			super.update();	
-			Registry.stateSwitch();
+			if (!FlxG.music.active)
+				musicComplete();
 		}
 		
 		override public function destroy():void {
 			super.destroy();
+			overText = null;
 		}
 		
 	}//class
