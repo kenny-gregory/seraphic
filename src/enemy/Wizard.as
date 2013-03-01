@@ -21,8 +21,8 @@ package enemy
 			experience = 10;
 			Groups.wizards.add(this);
 			
-			movePadX = 75;
-			movePadY = 75;
+			movePadX = FlxG.width;
+			movePadY = FlxG.height;
 		}
 		
 		override public function update():void {
