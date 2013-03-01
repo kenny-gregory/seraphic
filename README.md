@@ -1,7 +1,4 @@
 <br/><br/><br/><img src="http://www.legitcode.com/title.png"><br/><br/><br/>
-<h3><bold>Contact: </bold></h3> 
-<p>kenny@psycode.us (please contact me if you are wanting to become a contributer!)</p>
-<br>
 <h3>News:</h3>
 <p>
 -Updated the project in the past couple days with lots of new content check it out! View the commits for details.
@@ -14,3 +11,11 @@
 <br/><br/><br/>
 
 <img src="http://www.legitcode.com/seraphic.png" />
+<br/>
+<br/>
+<br/>
+<h3><bold>Contact: </bold></h3> 
+<p>kenny@psycode.us (<bold>please contact me if you are wanting to become a contributer!</bold>)</p>
+<br/>
+<br/>
+<br/>
