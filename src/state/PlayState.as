@@ -110,24 +110,28 @@ package state
 		
 		private function collision():void {
 			
-			if (FlxCollision.pixelPerfectCheck(Registry.player, Groups.npc.members[0], 255, FlxG.camera)) {
-				Registry.player.x = Registry.player.last.x;
-				Registry.player.y = Registry.player.last.y;
-				Collision.npcCollision(Registry.player, Groups.npc.members[0]);
-			}
+			// bats
 			for each(var b:Enemy in Groups.bats.members) {
 				if (FlxCollision.pixelPerfectCheck(Registry.player, b, 255, FlxG.camera)) {
 					Collision.enemyCollision(Registry.player, b);					
 				}
 			}
+			// wizards
 			for each(var w:Enemy in Groups.wizards.members) {
 				if (FlxCollision.pixelPerfectCheck(Registry.player, w, 255, FlxG.camera)) {		
 					Collision.enemyCollision(Registry.player, w);					
 				}
 			}			
 			
+			// pixel perfect map sprites
+			for each(var pp:PixelSprite in Groups.pixelPerfect.members) {
+				if (FlxCollision.pixelPerfectCheck(Registry.player, pp, 255, FlxG.camera)) {		
+					Collision.pixelPerfect(Registry.player, pp);					
+				}				
+			}
+			
 			//FlxG.collide(Registry.player, Groups.enemy, Collision.enemyCollision);
-			//FlxG.collide(Registry.player, Groups.npc, Collision.npcCollision);
+			FlxG.collide(Registry.player, Groups.npc, Collision.npcCollision);
 			FlxG.collide(Registry.player, Registry.level.hitTilemaps, null);			
 			
 		}

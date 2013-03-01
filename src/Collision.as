@@ -1,6 +1,7 @@
 package  
 {
 
+	import org.flixel.FlxG;
 	import player.Player;
 	import enemy.*;
 	import npc.*;
@@ -13,6 +14,11 @@ package
 			p.hurt(1);
 //			p.knockBack(1000);
 		}		
+		
+		public static function pixelPerfect(p:Player, pp:PixelSprite):void {
+			trace("p/pp: " + p + "/" + pp);
+			// check to see if the height/width allows for overlap or seperate and apply those
+		}
 		
 		public static function npcCollision(p:Player, n:*):void {
 			n.showDialog();

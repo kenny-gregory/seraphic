@@ -48,6 +48,9 @@ package
 		// map
 		[Embed(source = "../gfx/lostgarden.png")] public static const lostgarden:Class;
 		
+		// pixel perfect
+		[Embed(source = "../gfx/deadTree1.png")] public static const deadTree1:Class;
+		
 		// player
 		[Embed(source = "../gfx/hero.png")] public static const hero:Class;
 		
