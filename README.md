@@ -1,9 +1,10 @@
-<img src="http://www.legitcode.com/title.png" /><br><br>
+<center><img src="http://www.legitcode.com/title.png" /></center><br><br>
 ========
 
-<br><b><h1>News:</h1></b>
+<br><b><h3>News:</h3></b>
 <p>
-This is a very new repository. So what you see is a early stage of development on this project. 
+-Updated the project in the past couple days with lots of new content check it out! View the commits for details.
+<br/>-This is a very new repository. So what you see is a early stage of development on this project. 
 </p>
 <br/>
 <h3><bold>Contact: </bold></h3> 
