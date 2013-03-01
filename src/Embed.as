@@ -57,6 +57,7 @@ package
 		// music
 		[Embed(source = "../music/menu.mp3")] public static const music_menu:Class;
 		[Embed(source = "../music/interlude.mp3")] public static const music_interlude:Class;
+		[Embed(source = "../music/over.mp3")] public static const music_over:Class;
 		
 		// sfx
 		[Embed(source = "../sfx/textsfx.mp3")] public static const textsfx:Class;
