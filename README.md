@@ -1,14 +1,13 @@
-<center><img src="http://www.legitcode.com/title.png" /></center><br><br>
-========
+<center><img src="http://www.legitcode.com/title.png" /></center><br>
+<h3><bold>Contact: </bold></h3> 
+<p>kenny@psycode.us (please contact me if you are wanting to become a contributer!)</p>
+<br>
 
 <br><b><h3>News:</h3></b>
 <p>
 -Updated the project in the past couple days with lots of new content check it out! View the commits for details.
 <br/>-This is a very new repository. So what you see is a early stage of development on this project. 
 </p>
-<h3><bold>Contact: </bold></h3> 
-<p>kenny@psycode.us</p>
-<br>
 <h3><bold>Environment: </h3></bold>
 <p>Opensource, AS3, FlashDevelop, RPG (Typical NES/SNES era)</p>
 <br>
