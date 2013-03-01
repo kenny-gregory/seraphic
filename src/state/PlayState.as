@@ -38,7 +38,7 @@ package state
 			super.create();	
 			layers();			
 			Groups.create();
-			music(true);
+			music();
 		}
 		
 		private function layers():void {
@@ -57,13 +57,11 @@ package state
 			add(layer6);
 		}
 		
-		private function music(on:Boolean):void {
-			if(on) {
-				FlxG.music = new FlxSound;
-				FlxG.music.loadEmbedded(Embed.music_interlude, true, false);
-				FlxG.music.volume = .5;
-				FlxG.music.play();			
-			}
+		private function music():void {
+			FlxG.music = new FlxSound;
+			FlxG.music.loadEmbedded(Embed.music_interlude, true, false);
+			FlxG.music.volume = .5;
+			FlxG.music.play();			
 		}
 		
 		public function pause(doRender:Boolean, updateItems:Array):void {	

@@ -55,6 +55,7 @@ package
 		[Embed(source = "../gfx/hero.png")] public static const hero:Class;
 		
 		// music
+		[Embed(source = "../music/menu.mp3")] public static const music_menu:Class;
 		[Embed(source = "../music/interlude.mp3")] public static const music_interlude:Class;
 		
 		// sfx

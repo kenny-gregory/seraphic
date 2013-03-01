@@ -1,6 +1,7 @@
 package state
 {
 	
+	import org.flixel.FlxSound;
 	import org.flixel.FlxButton;
 	import org.flixel.FlxG;
 	import org.flixel.FlxState;
@@ -22,7 +23,15 @@ package state
 			FlxG.mouse.show(null, 1);
 			menuText();
 			menuListeners();
+			music();
 		}
+		
+		private function music():void {
+			FlxG.music = new FlxSound;
+			FlxG.music.loadEmbedded(Embed.music_menu, true, false);
+			FlxG.music.volume = .5;
+			FlxG.music.play();			
+		}		
 		
 		private function menuListeners():void {
 			
