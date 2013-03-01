@@ -2,8 +2,7 @@
 <h3><bold>Contact: </bold></h3> 
 <p>kenny@psycode.us (please contact me if you are wanting to become a contributer!)</p>
 <br>
-
-<br><b><h3>News:</h3></b>
+<h3>News:</h3>
 <p>
 -Updated the project in the past couple days with lots of new content check it out! View the commits for details.
 <br/>-This is a very new repository. So what you see is a early stage of development on this project. 
