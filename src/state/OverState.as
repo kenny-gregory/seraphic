@@ -4,19 +4,22 @@ package state
 	import org.flixel.FlxButton;
 	import org.flixel.FlxG;
 	import org.flixel.FlxSound;
+	import org.flixel.FlxSprite;
 	import org.flixel.FlxState;
 	import org.flixel.FlxText;	
 
 	public class OverState extends FlxState
 	{
 		
-		private var overText:FlxText;
+		private var gameOver:FlxSprite;
 		
 		override public function create():void {
 			super.create();
-			overText = new FlxText(FlxG.width / 2 - (FlxG.width / 2), FlxG.height / 3, FlxG.width, "GAME OVER", false);
-			overText.setFormat("Terminal", 18, 0xffffff, "center", 0xff333333);
-			add(overText);
+			gameOver = new FlxSprite;
+			gameOver.loadGraphic(Embed.over_gameover, false, false, 250, 57, false);
+			gameOver.x = (FlxG.width / 2) - (gameOver.width / 2);
+			gameOver.y = FlxG.height / 2 - gameOver.height;
+			add(gameOver);
 			music();
 		}
 		
@@ -39,7 +42,7 @@ package state
 		
 		override public function destroy():void {
 			super.destroy();
-			overText = null;
+			gameOver = null;
 		}
 		
 	}//class

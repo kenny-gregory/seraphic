@@ -4,13 +4,15 @@ package state
 	import org.flixel.FlxSound;
 	import org.flixel.FlxButton;
 	import org.flixel.FlxG;
+	import org.flixel.FlxSprite;
 	import org.flixel.FlxState;
 	import org.flixel.FlxText;
 
 	public class MenuState extends FlxState
 	{
 		
-		private var title:FlxText;
+		private var title:FlxSprite;
+		
 		private var play:FlxButton;
 		private var options:FlxButton;		
 		private var load:FlxButton;		
@@ -21,7 +23,11 @@ package state
 		override public function create():void {
 			super.create();
 			FlxG.mouse.show(null, 1);
-			menuText();
+			title = new FlxSprite;
+			title.loadGraphic(Embed.menu_title, false, false, 250, 57, false);
+			title.x = FlxG.width / 2 - title.width / 2;
+			title.y = 30;			
+			menuText();			
 			menuListeners();
 			music();
 		}
@@ -39,18 +45,12 @@ package state
 		
 		private function menuText():void {
 			
-			title = new FlxText(0, 0, 165, "seraphic", false);
-			
-			title.setFormat("Terminal", 24, 0x444444, "center", 0xCCCCCC);
-			
 			play = new FlxButton(0, 0, "play", playDown);
 			options = new FlxButton(0, 0, "options", optionsDown);
 			load = new FlxButton(0, 0, "load", loadDown);
 			help = new FlxButton(0, 0, "help", helpDown);
 			
 			
-			title.x = FlxG.width / 2 - title.width / 2;
-			title.y = 30;
 			play.x = FlxG.width / 2 - play.width / 2;
 			play.y = FlxG.height / 3;
 			options.x = FlxG.width / 2 - options.width / 2;
