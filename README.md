@@ -16,4 +16,3 @@
 <br/><br/><br/>
 
 <img src="http://www.legitcode.com/seraphic.png" />
-<br/><br/><br/><br/><br/><h1>EOF</h2><br/><br/><br/><br/>
