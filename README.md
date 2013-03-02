@@ -1,5 +1,6 @@
 <h3>News:</h3>
 <p>
+<b>-</b> 3/3/13 - Added 'portraits' to the Dialog class. Updated README.md
 <b>-</b> 3/2/13 - Redesigned 'Dialog.as' (conversation) class. Improved GUI, more addon friendly and better documented.
 <br/><b>-</b> 3/1/13 - Updated the project in the past couple days with lots of new content check it out! View the commits for details.
 <br/><b>-</b> 2/28/13 - This is a very new repository. So what you see is a early stage of development on this project. 
