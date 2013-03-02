@@ -206,8 +206,11 @@ package
 						waitingOnKey = true;
 					}
 					if (textfield.height >= (background.height - (pad.y * 4))) {
-						waitingOnKey = true;
-						textfield.text += "..... press enter to read more!";
+						// if the last character displayed in the message was a space so that the word does not get split.
+						if(textfield.text.charAt(textfield.text.length - 1) == " ") {
+							waitingOnKey = true;
+							textfield.text += "..... press enter to read more!";
+						}
 					}
 					else { } // next message
 				}
