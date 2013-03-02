@@ -51,6 +51,8 @@ package
 		public static var message:String;
 		/** Current character position in the message */
 		public static var messagePosition:int = 0;
+		/** Last Parent */
+		public static var lastParent:FlxObject;
 		
 		public static var thumbIndex:int;
 		
@@ -86,6 +88,12 @@ package
 			// after messages are cycled if loop is not null the messages identified by loop array will be looped
 			loopArray = loop;
 			
+			// reset conversation if parent of conversation changed
+			if (!lastParent || parent != lastParent) {
+				conversation = null;
+				lastParent = parent;
+			}
+			
 			layout();
 			(FlxG.state as PlayState).pause(renderState, new Array(textfield));
 			
@@ -95,11 +103,13 @@ package
 				positions = new Dictionary(true);	
 			}
 			
+			// reset the conversation on a new write incase we are speaking with a different parent speaker
+			
 			// store interaction texts if none exists for parent
 			if (!interactions[parent]) {
 				interactions[parent] = text;
 				// set parent position to keep track of line to display
-				positions[parent] = 0;
+				positions[parent] = 0;		
 			}
 			
 			next();			
@@ -109,6 +119,7 @@ package
 		private static function next():void {
 			messagePosition = 0;
 			
+			// store the conversation of the specific parent 'speaker'
 			if (!conversation) {
 				conversation = new Array;
 				conversation = interactions[owner];
@@ -147,17 +158,16 @@ package
 			else
 				background.visible = true;
 				
-			if(thumb) {
-				if (!thumbnail && thumbIndex >= 0) {
-					thumbnail = new FlxSprite;
-					thumbnail.loadGraphic(Embed.thumbnail_faces, true, false, 48, 48, false);
-					thumbnail.addAnimation("portrait", [thumbIndex], 0, false);
-					thumbnail.play("portrait");
-					thumbnail.x = background.x + pad.x;
-					thumbnail.y = background.y + pad.y;
-				}	
-				else 
-					thumbnail.visible = true;
+			if (thumb && thumbIndex >= 0) {
+				thumbnail = null;
+				thumbnail = new FlxSprite;
+				thumbnail.loadGraphic(Embed.thumbnail_faces, true, false, 48, 48, false);					
+				thumbnail.x = background.x + pad.x;
+				thumbnail.y = background.y + pad.y;
+				// load specific portrait
+				thumbnail.addAnimation("portrait", [thumbIndex], 0, false);
+				thumbnail.play("portrait");			
+				thumbnail.visible = true;
 			}
 			
 			if (!textfield) {
@@ -174,16 +184,26 @@ package
 			if (!master) {
 				master = new FlxGroup;				
 				master.add(background);
-				if(thumb)
-					master.add(thumbnail);
 				master.add(textfield);
 				(FlxG.state as PlayState).layer6.add(master);
+			}
+			
+			// add thumbnail to the display list through master if its not already present in master
+			if (thumb) {
+				if(master.members.indexOf(thumbnail, 0) < 0)
+					master.add(thumbnail);			
 			}
 			
 			if(!sfx) {
 				sfx = new FlxSound;
 				sfx.loadEmbedded(Embed.textsfx, false, false);
 			}
+			
+			// scroll factor
+			background.scrollFactor.x = background.scrollFactor.y = 0;
+			thumbnail.scrollFactor.x = thumbnail.scrollFactor.y = 0;
+			textfield.scrollFactor.x = textfield.scrollFactor.y = 0;
+			
 		}
 		
 		/** Update the dialog */

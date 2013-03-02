@@ -57,7 +57,7 @@ package npc
 					case 1:
 						Dialog.write(this, new Array("My name is Sarah. I heard about you from my sister. This tree grew in memory of the hero before you.", 
 																	"You must hurry!"
-																	), true, true);		
+																	), true, true, true, 5);		
 						break;
 				}
 			}
