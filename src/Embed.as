@@ -10,6 +10,7 @@ package
 		
 		// npc
 		[Embed(source = "../gfx/princess1.png")] public static const princess1:Class;
+		[Embed(source = "../gfx/princess2.png")] public static const princess2:Class;
 		
 		// tileset
 		[Embed(source = "../gfx/lostgarden.png")] public static const lostgarden:Class;

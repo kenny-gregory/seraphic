@@ -6,8 +6,7 @@ package
 	import flash.utils.Dictionary;
 	import enemy.*;
 	import npc.*;
-	import player.Player;
-	import state.PlayState;
+	import player.*;
 	
 	public class Level1 extends BaseLevel
 	{
@@ -39,7 +38,7 @@ package
 			properties = generateProperties( null );
 			layerGround = addTilemap( CSV_Ground, Img_Ground, 0.000, 0.000, 20, 20, 1.000, 1.000, false, 1, 1, properties, onAddCallback );
 			properties = generateProperties( null );
-			layerCollide = addTilemap( CSV_Collide, Img_Collide, 0.000, 0.000, 32, 32, 1.000, 1.000, true, 2, 1, properties, onAddCallback );
+			layerCollide = addTilemap( CSV_Collide, Img_Collide, 0.000, 0.000, 32, 32, 1.000, 1.000, false, 2, 1, properties, onAddCallback );
 
 			//Add layers to the master group in correct order.
 			masterLayer.add(PathsGroup);
@@ -59,6 +58,8 @@ package
 			bgColor = 0xff777777;
 		}
 
+		import state.PlayState;
+		
 		override public function createObjects(onAddCallback:Function = null, parentObject:Object = null):void
 		{
 			addPathsForLayerPaths(onAddCallback);
@@ -72,8 +73,8 @@ package
 				parentObject.add(layerGround);
 				
 				var playerLayer:Object = (FlxG.state as PlayState).layer4;
-				playerLayer.add(SpritesGroup);	
-				playerLayer.add(layerCollide);				
+				playerLayer.add(SpritesGroup);
+				playerLayer.add(layerCollide);						
 				
 				playerLayer = null;
 			}
@@ -97,7 +98,8 @@ package
 			addSpriteToLayer(null, Bat, SpritesGroup , 227.000, 409.000, 0.000, 1, 1, false, 1.000, 1.000, generateProperties( null ), onAddCallback );//"Bat1"
 			addSpriteToLayer(null, Bat, SpritesGroup , 487.000, 263.000, 0.000, 1, 1, false, 1.000, 1.000, generateProperties( null ), onAddCallback );//"Bat1"
 			addSpriteToLayer(null, Princess, SpritesGroup , 27.000, 16.000, 0.000, 1, 1, false, 1.000, 1.000, generateProperties( null ), onAddCallback );//"Princess1"
-			addSpriteToLayer(null, PixelSprite, SpritesGroup , 114.000, 113.000, 0.000, 1, 1, false, 1.000, 1.000, generateProperties( { SimpleGraphic:Embed.deadTree1 }, null ), onAddCallback );//"DeadTree1"
+			addSpriteToLayer(null, PixelSprite, SpritesGroup , 114.000, 113.000, 0.000, 1, 1, false, 1.000, 1.000, generateProperties( null ), onAddCallback );//"DeadTree1"
+			addSpriteToLayer(new Princess(192.000,181.000, null, 1), Princess, SpritesGroup , 192.000, 181.000, 0.000, 1, 1, false, 1.000, 1.000, generateProperties( { name:"type", value:0 }, null ), onAddCallback );//"Princess2"
 		}
 
 		public function generateObjectLinks(onAddCallback:Function = null):void
