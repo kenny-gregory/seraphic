@@ -1,7 +1,7 @@
 <br/><br/><br/><img src="http://www.legitcode.com/title.png"><br/><br/><br/>
 <h3>News:</h3>
 <p>
-<b>-</b> 3/2/13 - Redesigned a new and improved Dialog (conversation) class. This one is more addon friendly and documented. The GUI is also improved.
+<b>-</b> 3/2/13 - Redesigned 'Dialog.as' (conversation) class. Improved GUI, more addon friendly and better documented.
 <br/><b>-</b> 3/1/13 - Updated the project in the past couple days with lots of new content check it out! View the commits for details.
 <br/><b>-</b> 2/28/13 - This is a very new repository. So what you see is a early stage of development on this project. 
 </p><br/>
