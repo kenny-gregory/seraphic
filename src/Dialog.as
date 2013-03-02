@@ -137,6 +137,8 @@ package
 			if(!background) {
 				background = new FlxSprite;
 				background.loadGraphic(Embed.messagebox_teal, false, false, 318, 78, false);
+				background.x = (FlxG.width - background.width) / 2;
+				background.y = (FlxG.height / 2);
 			}
 			else
 				background.visible = true;
@@ -150,7 +152,7 @@ package
 			}
 			
 			if(!textfield) {
-				textfield = new FlxText(pad.x, pad.y, background.width - (pad.x * 2), null, false);
+				textfield = new FlxText((background.x + pad.x), (background.y + pad.y), background.width - (pad.x * 2), null, false);
 				textfield.setFormat("Terminal", 6, 0xffffff, "left", 0xFF000000);
 			}
 			else
@@ -165,7 +167,6 @@ package
 				(FlxG.state as PlayState).layer6.add(master);
 			}
 			
-			// sfx
 			if(!sfx) {
 				sfx = new FlxSound;
 				sfx.loadEmbedded(Embed.textsfx, false, false);

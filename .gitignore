@@ -1,6 +1,7 @@
 bin/
 bin-debug/
 bin-release/
+gfx/tmp/
 .settings/
 *.swf
 *.bak
