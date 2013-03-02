@@ -84,17 +84,13 @@ package state
 		
 		override public function update():void {
 			if (FlxG.keys.justPressed("ENTER")) {
-				if (Dialog.active) {
-					Dialog.waitingOnUserInput = false;				
-					Dialog.resume();
-				}				
+				// Dialog
 			}
 			if (paused)
 				return pausedGroup.update();
 				
 			super.update();		
 			World.update();
-			Registry.stateSwitch();
 			collision();
 			Hud.update();			
 		}

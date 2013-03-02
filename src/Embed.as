@@ -68,6 +68,9 @@ package
 		// sfx
 		[Embed(source = "../sfx/textsfx.mp3")] public static const textsfx:Class;
 		
+		// dialog
+		[Embed(source = "../gfx/messagebox_teal.png")] public static const messagebox_teal:Class;
+		
 		//levels
 		Level1;
 		Level2;

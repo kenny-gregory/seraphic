@@ -1,176 +1,274 @@
-package  
+package 
 {
 	
 	import flash.events.Event;
+	import flash.utils.Dictionary;
 	import org.flixel.FlxG;
+	import org.flixel.FlxGroup;
+	import org.flixel.FlxObject;
 	import org.flixel.FlxPoint;
 	import org.flixel.FlxSound;
+	import org.flixel.FlxSprite;
 	import org.flixel.FlxText;
 	import state.PlayState;
 
-	public class Dialog 
+	public class Dialog
 	{
-		public static var text_sfx:FlxSound;
 		
-		public static var loop:Boolean;
-		public static var index:int = 0;
-		public static var position:int = 0;
-		public static var behavior:String;
-		public static var multiDialog:Boolean = false
-		public static var waitingOnUserInput:Boolean = false;
-		
+		/** If the Dialog is currently being executed */
 		public static var active:Boolean = false;
-		private static var fontSize:int = 16;
-		private static var textfield:FlxText;
-		private static var textArray:Array;
-		private static var multipleTextArrays:Vector.<Array>;
-		private static var moreTextToDisplay:Boolean = false;
+		/** Contains all 'added' objects */
+		public static var master:FlxGroup;		
+		/** The padding for the textfield's appearance on the dialog background. */
+		public static var pad:FlxPoint = new FlxPoint(10, 10);
+		/** The graphical border or message box asset. */
+		public static var background:FlxSprite;
+		/** Picture generally of the speaker in the conversation */
+		public static var thumbnail:FlxSprite;
+		/** The message text */
+		public static var textfield:FlxText;
+		/** Sound effect for each character in the message being displayed */
+		public static var sfx:FlxSound;
+		/** Waiting on user input through the keyboard */
+		public static var waitingOnKey:Boolean = false;
+		/** Enable thumbnails */
+		public static var thumb:Boolean;
+		/** Cycle back through the conversation once it has completed the initial cycle. */
+		public static var cycle:Boolean;
+		/** Completed the initial cycle */
+		public static var completedCycle:Boolean = false;
+		/** Items to be repeated in the order defined once the initial cycle is completed */
+		public static var loopArray:Array;
+		/** Storage of the conversations and their owners */
+		public static var interactions:Dictionary;
+		/** Position of message index in the conversation specific to the owner */
+		public static var positions:Dictionary;
+		/** Copy of the conversation which is the one that is manipulated in the code of this class */
+		public static var conversation:Array;
+		/** The object who requested the conversation */
+		public static var owner:FlxObject;
+		/** Current message to display */
+		public static var message:String;
+		/** Current character position in the message */
+		public static var messagePosition:int = 0;
 		
-		
-		public static function write(text:Array, method:String="single", repeat:Boolean = true, render:Boolean = true):void {			
-			
-			if (!text_sfx) {
-				text_sfx = new FlxSound;
-				text_sfx.loadEmbedded(Embed.textsfx, false, false);
-			}
-			
-			loop = repeat;
-			behavior = method;
-			
-			switch(behavior) {
-				case "multiple":
-					multiDialog = true;
-					break;
-				case "single":
-					multiDialog = false;
-					
-				default:
-					break;		
-			}
-			
-			active = true;
-			
-			if(!multipleTextArrays) {
-			
-				textfield = new FlxText(50, 25, (FlxG.width * .75), "", false);
-				(FlxG.state as PlayState).layer6.add(textfield);
-				textfield.scrollFactor = new FlxPoint(0, 0);		
-				
-				for each(var textStrings:String in text) {
-					
-					textArray = new Array;					
-					
-					for (var i:int = 0; i < textStrings.length; i++) 
-						textArray.push(textStrings.charAt(i));
-					
-						
-					if (!multipleTextArrays)	
-						multipleTextArrays = new Vector.<Array>;
-						
-					multipleTextArrays.push(textArray);
-				}
-			}
-			else
-				next();
-				
-				
-			if (behavior == "multiple") 
-				textArray = multipleTextArrays[position];
-			else
-				textArray = multipleTextArrays[0];
-			FlxG.stage.addEventListener(Event.ENTER_FRAME, update, false, 0, true);	
-			(FlxG.state as PlayState).pause(render,  new Array(textfield));
-		}
-		
-		public static function update(e:Event):void {
-			if (!waitingOnUserInput) {
-				if(textArray) {
-					if (index < textArray.length) {
-						textfield.text += textArray[index];
-						text_sfx.play(false);
-						index++;
-					}
-					else { 				
-						waitingOnUserInput = true;
-						index = 0;
-					}
-				}
-			}
-			else {
+		/** 
+		 *  Write a message to be displayed in dialog format. Uses include but not limited to:  NPC, story, cutscene, credits.
+		 * 
+		 *  @param parent	The source object that called the write method. Used when returning to store conversations.
+		 *  @param text	Can include single or multiple messages of any length.
+		 *  @param repeat	Keep messages stored and restart them from the beginning once all messages have been displayed.
+		 *  @param renderState Perform the state's render. If set to false then only the text will be displayed on the screen.
+		 *  @param enableThumb Enable the use of thumbnails in the dialog. Generally this would be a picture of the person currently speaking in the conversation.
+		 *  @param loop Specify the message numbers of the conversation as they are arranged in the text parameter in any order and they will be looped after the initial conversation is completed.
+		 * 
+		 */
+		public static function write(parent:FlxObject, text:Array, repeat:Boolean = true, renderState:Boolean = true, enableThumb:Boolean = false, loop:Array = null):void {
+			// prevent multiple collisions triggering dialog from the same instance
+			if (active)
 				return;
+				
+			// dialog is now active to prevent unwanted behavior
+			active = true;
+			// set current parent object
+			owner = parent;
+			// set to use a thumbnail in messagebox
+			thumb = enableThumb;
+			// remove message after it is displayed
+			cycle = repeat;
+			// set repeat to false if loop is defined since the repeat process will be interrupted/overridden by the loop
+			if (loop && loop.length > 0 && repeat)
+				repeat = false;
+			// after messages are cycled if loop is not null the messages identified by loop array will be looped
+			loopArray = loop;
+			
+			layout();
+			(FlxG.state as PlayState).pause(renderState, new Array(textfield));
+			
+			// if state changed or initial creation then instantiate the dictionaries
+			if(!interactions) {
+				interactions = new Dictionary(true)
+				positions = new Dictionary(true);	
 			}
+			
+			// store interaction texts if none exists for parent
+			if (!interactions[parent]) {
+				interactions[parent] = text;
+				// set parent position to keep track of line to display
+				positions[parent] = 0;
+			}
+			
+			next();			
 		}
 		
-		public static function resume():void {
-			if (multiDialog) 
+		/** Handle the next message in the conversation if one exist */
+		private static function next():void {
+			messagePosition = 0;
+			
+			if (!conversation) {
+				conversation = new Array;
+				conversation = interactions[owner];
+			}
+			// if loop is defined set the message position according to the loop values
+			if (completedCycle && (loopArray && loopArray.length > 0))
+				message = conversation[ loopArray[positions[owner]] ];
+			else
+				message = conversation[positions[owner]];
+				
+			// if message does not exist or all messages have been finalized then ignore dialog request
+			if (!message) {
 				clear();
-			else {
-				waitingOnUserInput = false;		
-				next();
+				(FlxG.state as PlayState).unpause();
+				return;				
 			}
-			index = 0;
+				
+			// if not cycling remove message completely after being displayed
+			if (!cycle && !completedCycle) { 
+				// if loop array is defined and message is not contained within loops to be looped or if loop array is not defined then null message from queue
+				if((loopArray && loopArray.indexOf(positions[owner], 0) < 0) || !loopArray)
+					conversation[positions[owner]] = null;
+			}	
+			positions[owner]++;					
+			FlxG.stage.addEventListener(Event.ENTER_FRAME, update, false, 0, true);
 		}
 		
-		private static function setTextFieldBounds():void {
-			for(var i:int = 0; i < textArray.length; i++) {
-				if (textfield.width > FlxG.width) {
-					textfield.height += fontSize;
-				}		
+		/** Create the layout for the Dialog */
+		private static function layout():void {
+			if(!background) {
+				background = new FlxSprite;
+				background.loadGraphic(Embed.messagebox_teal, false, false, 318, 78, false);
+			}
+			else
+				background.visible = true;
+				
+			if(thumb) {
+				if(!thumbnail) {
+					thumbnail = new FlxSprite;
+				}	
+				else 
+					thumbnail.visible = true;
+			}
+			
+			if(!textfield) {
+				textfield = new FlxText(pad.x, pad.y, background.width - (pad.x * 2), null, false);
+				textfield.setFormat("Terminal", 6, 0xffffff, "left", 0xFF000000);
+			}
+			else
+				textfield.visible = true;
+			
+			if (!master) {
+				master = new FlxGroup;				
+				master.add(background);
+				if(thumb)
+					master.add(thumbnail);
+				master.add(textfield);
+				(FlxG.state as PlayState).layer6.add(master);
+			}
+			
+			// sfx
+			if(!sfx) {
+				sfx = new FlxSound;
+				sfx.loadEmbedded(Embed.textsfx, false, false);
 			}
 		}
 		
-		public static function next():void {
-			switch(behavior) {
-				case "multiple":
-					if (position >= (multipleTextArrays.length - 1)) {
-						if(loop)
-							position = 0;
+		/** Update the dialog */
+		private static function update(e:Event):void {
+			if (active) {
+				// waiting for key to continue
+				if (!waitingOnKey) {
+					// allow player to abort dialog
+					if (FlxG.keys.justPressed("ENTER")) {
+						clear();						
+						(FlxG.state as PlayState).unpause();
+						return;
 					}
-					else 
-						position++;
-						
-					textfield.text = "";				
-					textArray = multipleTextArrays[position];
-					setTextFieldBounds();			
-					break;
-					
-				default:
-					if (multipleTextArrays.length > 1) {
-						textfield.text = "";
-						multipleTextArrays.splice(0, 1);						
-						textArray = multipleTextArrays[0];
-						textfield.width = textArray.length * fontSize;
-					}					
-					else
-						clear(false);					
-					break;
+					if(messagePosition < message.length) {
+						textfield.text += message.charAt(messagePosition);
+						messagePosition++;
+						sfx.play(false);
+					}
+					else {
+						waitingOnKey = true;
+					}
+					if (textfield.height >= (background.height - (pad.y * 2))) {
+						waitingOnKey = true;
+						textfield.text += "..... press enter to read more!";
+					}
+					else { } // next message
+				}
+				// waiting on key
+				else {
+					if (FlxG.keys.justPressed("ENTER")) {
+						textfield.text = "";						
+						waitingOnKey = false;
+						if (messagePosition >= message.length) {
+							clear();
+							(FlxG.state as PlayState).unpause();
+							return;							
+						}
+					}
+				}
 			}
 		}
 		
-		public static function clear(removeListener:Boolean = true):void {	
-			if (removeListener) 
-				FlxG.stage.removeEventListener(Event.ENTER_FRAME, update);
-			else {
-				multipleTextArrays.splice(0, multipleTextArrays.length);		
-				multipleTextArrays = null;
+		/** Clear or reset the conversation properties */
+		private static function clear():void {
+			FlxG.stage.removeEventListener(Event.ENTER_FRAME, update);				
+			if(background)
+				background.visible = false;
+			if(thumbnail)
+				thumbnail.visible = false;
+			if(textfield)
+				textfield.visible = false;
+				
+			// switch to position of loop items instead of position of conversation
+			if (completedCycle) {
+				if(loopArray) {
+					if (positions[owner] >= loopArray.length)
+						positions[owner] = 0;
+				}
 			}
-			textArray = null;					
-			textfield.text = "";
-			active = false;							
-			(FlxG.state as PlayState).unpause();
+			// reset position of conversation messages
+			else if (positions[owner] >= conversation.length) {
+				completedCycle = true;
+				if(cycle)
+					positions[owner] = 0;		
+				else
+					positions[owner]--;
+			}
+				
+			textfield.text = "";				
+			active = false;	
+			message = null;
+			messagePosition = 0;		
+			waitingOnKey = false;
 		}
 		
-		
-		
+		/** Remove any references used in the Dialog class. */
 		public static function destroy():void {
+			if(background)
+				background = null;
+			if(thumbnail)
+				thumbnail = null;
 			if(textfield)
 				textfield = null;
-			if(multipleTextArrays) {
-				multipleTextArrays.splice(0, multipleTextArrays.length);
-				multipleTextArrays = null;
-			}
-			index = position = 0;
-		}
+			if(master)
+				master = null;
+				
+			sfx = null;
+			loopArray.splice(0);			
+			loopArray = null;
+			interactions = null;
+			positions = null;
+			conversation.splice(0);
+			conversation = null;
+			owner = null;
+			messagePosition = 0;
+			active = false;
+			waitingOnKey = false;
+			completedCycle = false;
+		}	
 		
 		
 	}//class
