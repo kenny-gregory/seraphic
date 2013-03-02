@@ -106,14 +106,18 @@ package state
 			
 			// bats
 			for each(var b:Enemy in Groups.bats.members) {
-				if (FlxCollision.pixelPerfectCheck(Registry.player, b, 255, FlxG.camera)) {
-					Collision.enemyCollision(Registry.player, b);					
+				if(b) {
+					if (FlxCollision.pixelPerfectCheck(Registry.player, b, 255, FlxG.camera)) {
+						Collision.enemyCollision(Registry.player, b);					
+					}
 				}
 			}
 			// wizards
 			for each(var w:Enemy in Groups.wizards.members) {
-				if (FlxCollision.pixelPerfectCheck(Registry.player, w, 255, FlxG.camera)) {		
-					Collision.enemyCollision(Registry.player, w);					
+				if(w) {
+					if (FlxCollision.pixelPerfectCheck(Registry.player, w, 255, FlxG.camera)) {		
+						Collision.enemyCollision(Registry.player, w);					
+					}
 				}
 			}			
 			

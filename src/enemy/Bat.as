@@ -35,6 +35,12 @@ package enemy
 			worldBounds();
 		}
 		
+		override public function kill():void {
+			Groups.enemy.remove(this);
+			Groups.bats.remove(this);			
+			super.kill();
+		}
+		
 		override public function destroy():void {
 			super.destroy();
 		}
