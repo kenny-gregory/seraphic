@@ -1,8 +1,9 @@
 <br/><br/><br/><img src="http://www.legitcode.com/title.png"><br/><br/><br/>
 <h3>News:</h3>
 <p>
-<b>-</b> Updated the project in the past couple days with lots of new content check it out! View the commits for details.
-<br/><b>-</b> This is a very new repository. So what you see is a early stage of development on this project. 
+<b>-</b> 3/2/13 - Redesigned 'Dialog.as' (conversation) class. Improved GUI, more addon friendly and better documented.
+<br/><b>-</b> 3/1/13 - Updated the project in the past couple days with lots of new content check it out! View the commits for details.
+<br/><b>-</b> 2/28/13 - This is a very new repository. So what you see is a early stage of development on this project. 
 </p><br/>
 <h3><bold>Environment: </h3></bold>
 <p>Opensource, AS3, FlashDevelop, RPG (<b>NES/SNES</b>)</p>
@@ -15,7 +16,7 @@
 <br/>
 <br/>
 <h3>Contact: </h3> 
-<p>kenny@psycode.us (<b>please contact me if you are wanting to become a contributer!</b>)</p>
+<p>kenny@psycode.us (contact if you would like to contribute)</p>
 <br/>
 <br/>
 <br/>
