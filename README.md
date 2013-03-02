@@ -16,7 +16,7 @@
 <br/>
 <br/>
 <h3>Contact: </h3> 
-<p>kenny@psycode.us (<b>please contact me if you are wanting to become a contributer!</b>)</p>
+<p>kenny@psycode.us (contact if you would like to contribute)</p>
 <br/>
 <br/>
 <br/>
