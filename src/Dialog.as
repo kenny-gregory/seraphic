@@ -69,7 +69,7 @@ package
 		 */
 		public static function write(parent:FlxObject, text:Array, repeat:Boolean = true, renderState:Boolean = true, enableThumb:Boolean = false, thumbnailIndex:int = -1, loop:Array = null):void {
 			// prevent multiple collisions triggering dialog from the same instance
-			if (active)
+			if (active) 
 				return;
 				
 			// dialog is now active to prevent unwanted behavior
@@ -94,7 +94,9 @@ package
 				lastParent = parent;
 			}
 			
+			// create the gui interface for the dialog
 			layout();
+			
 			(FlxG.state as PlayState).pause(renderState, new Array(textfield));
 			
 			// if state changed or initial creation then instantiate the dictionaries
@@ -127,7 +129,7 @@ package
 			// if loop is defined set the message position according to the loop values
 			if (completedCycle && (loopArray && loopArray.length > 0))
 				message = conversation[ loopArray[positions[owner]] ];
-			else
+			else 
 				message = conversation[positions[owner]];
 				
 			// if message does not exist or all messages have been finalized then ignore dialog request
@@ -264,6 +266,13 @@ package
 				if(loopArray) {
 					if (positions[owner] >= loopArray.length)
 						positions[owner] = 0;
+				}
+				// reset position in converstion if conversation has ended and cycle is true. otherwise use previous position which if is null will exit the dialog.
+				else if (positions[owner] >= conversation.length) {
+					if(cycle)
+						positions[owner] = 0;		
+					else
+						positions[owner]--;
 				}
 			}
 			// reset position of conversation messages
