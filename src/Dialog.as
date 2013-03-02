@@ -52,6 +52,8 @@ package
 		/** Current character position in the message */
 		public static var messagePosition:int = 0;
 		
+		public static var thumbIndex:int;
+		
 		/** 
 		 *  Write a message to be displayed in dialog format. Uses include but not limited to:  NPC, story, cutscene, credits.
 		 * 
@@ -63,7 +65,7 @@ package
 		 *  @param loop Specify the message numbers of the conversation as they are arranged in the text parameter in any order and they will be looped after the initial conversation is completed.
 		 * 
 		 */
-		public static function write(parent:FlxObject, text:Array, repeat:Boolean = true, renderState:Boolean = true, enableThumb:Boolean = false, loop:Array = null):void {
+		public static function write(parent:FlxObject, text:Array, repeat:Boolean = true, renderState:Boolean = true, enableThumb:Boolean = false, thumbnailIndex:int = -1, loop:Array = null):void {
 			// prevent multiple collisions triggering dialog from the same instance
 			if (active)
 				return;
@@ -74,6 +76,8 @@ package
 			owner = parent;
 			// set to use a thumbnail in messagebox
 			thumb = enableThumb;
+			// the portrait to use if thumb is enabled
+			thumbIndex = thumbnailIndex;			
 			// remove message after it is displayed
 			cycle = repeat;
 			// set repeat to false if loop is defined since the repeat process will be interrupted/overridden by the loop
@@ -144,15 +148,24 @@ package
 				background.visible = true;
 				
 			if(thumb) {
-				if(!thumbnail) {
+				if (!thumbnail && thumbIndex >= 0) {
 					thumbnail = new FlxSprite;
+					thumbnail.loadGraphic(Embed.thumbnail_faces, true, false, 48, 48, false);
+					thumbnail.addAnimation("portrait", [thumbIndex], 0, false);
+					thumbnail.play("portrait");
+					thumbnail.x = background.x + pad.x;
+					thumbnail.y = background.y + pad.y;
 				}	
 				else 
 					thumbnail.visible = true;
 			}
 			
-			if(!textfield) {
-				textfield = new FlxText((background.x + pad.x), (background.y + pad.y), background.width - (pad.x * 2), null, false);
+			if (!textfield) {
+				if(thumbnail && thumbIndex >= 0) // TODO: fix math below to something more simple
+					textfield = new FlxText((background.x + ((pad.x * 4) + thumbnail.width / 2)), (background.y + (pad.y * 1.5)), (background.width - (pad.x * 4) - thumbnail.width), null, false);
+				else
+					textfield = new FlxText((background.x + pad.x), (background.y + pad.y), background.width - (pad.x * 2), null, false);
+				
 				textfield.setFormat("Terminal", 6, 0xffffff, "left", 0xFF000000);
 			}
 			else
@@ -192,7 +205,7 @@ package
 					else {
 						waitingOnKey = true;
 					}
-					if (textfield.height >= (background.height - (pad.y * 2))) {
+					if (textfield.height >= (background.height - (pad.y * 4))) {
 						waitingOnKey = true;
 						textfield.text += "..... press enter to read more!";
 					}

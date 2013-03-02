@@ -29,7 +29,7 @@ package npc
 															"Beware.. ever since the last hero disappeared it is common to see monsters even inside our towns. Talk to the elder he may have something for you to help you on your journey.", 
 															"There is nothing more I can do or say to help you. May the blood scorpion bless you!",
 															"Hurry! You have no time to wait. The army of darkness will know your here"
-															), false, true, false, new Array(1, 2, 3));
+															), false, true, true, 1, new Array(1, 2, 3));
 			}
 		}	
 		

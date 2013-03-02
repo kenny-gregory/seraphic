@@ -37,6 +37,7 @@ package
 		
 		// dialog
 		[Embed(source = "../gfx/messagebox_teal.png")] public static const messagebox_teal:Class;
+		[Embed(source = "../gfx/faces.png")] public static const thumbnail_faces:Class;
 		
 		// weapon
 		[Embed(source = "../gfx/plasmaballlpc_0.png")] public static const plasmaBall:Class;
