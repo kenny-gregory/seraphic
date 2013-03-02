@@ -35,14 +35,16 @@ package
 		public static var thumb:Boolean;
 		/** Cycle back through the conversation once it has completed the initial cycle. */
 		public static var cycle:Boolean;
-		/** Completed the initial cycle */
-		public static var completedCycle:Boolean = false;
 		/** Items to be repeated in the order defined once the initial cycle is completed */
 		public static var loopArray:Array;
 		/** Storage of the conversations and their owners */
 		public static var interactions:Dictionary;
 		/** Position of message index in the conversation specific to the owner */
 		public static var positions:Dictionary;
+		
+		/** Completed initial cycle */
+		public static var completedCycle:Dictionary;
+		
 		/** Copy of the conversation which is the one that is manipulated in the code of this class */
 		public static var conversation:Array;
 		/** The object who requested the conversation */
@@ -88,6 +90,12 @@ package
 			// after messages are cycled if loop is not null the messages identified by loop array will be looped
 			loopArray = loop;
 			
+			// if specific parent 'speaker' has completed a cycle of their conversation it will be set for later retrieval here.
+			if (!completedCycle)
+				completedCycle = new Dictionary(true);
+			if (!completedCycle[owner])
+				completedCycle[owner] = false;			
+			
 			// reset conversation if parent of conversation changed
 			if (!lastParent || parent != lastParent) {
 				conversation = null;
@@ -127,7 +135,10 @@ package
 				conversation = interactions[owner];
 			}
 			// if loop is defined set the message position according to the loop values
-			if (completedCycle && (loopArray && loopArray.length > 0))
+			
+			trace("completed for this owner?: " + completedCycle[owner]);
+			
+			if (completedCycle[owner] && (loopArray && loopArray.length > 0))
 				message = conversation[ loopArray[positions[owner]] ];
 			else 
 				message = conversation[positions[owner]];
@@ -140,7 +151,7 @@ package
 			}
 				
 			// if not cycling remove message completely after being displayed
-			if (!cycle && !completedCycle) { 
+			if (!cycle && !completedCycle[owner]) { 
 				// if loop array is defined and message is not contained within loops to be looped or if loop array is not defined then null message from queue
 				if((loopArray && loopArray.indexOf(positions[owner], 0) < 0) || !loopArray)
 					conversation[positions[owner]] = null;
@@ -262,7 +273,7 @@ package
 				textfield.visible = false;
 				
 			// switch to position of loop items instead of position of conversation
-			if (completedCycle) {
+			if (completedCycle[owner]) {
 				if(loopArray) {
 					if (positions[owner] >= loopArray.length)
 						positions[owner] = 0;
@@ -277,7 +288,7 @@ package
 			}
 			// reset position of conversation messages
 			else if (positions[owner] >= conversation.length) {
-				completedCycle = true;
+				completedCycle[owner] = true;
 				if(cycle)
 					positions[owner] = 0;		
 				else
@@ -313,7 +324,6 @@ package
 			messagePosition = 0;
 			active = false;
 			waitingOnKey = false;
-			completedCycle = false;
 		}	
 		
 		
