@@ -2,8 +2,9 @@ package npc
 {
 	
 	import org.flixel.FlxSprite;
-
-	public class Princess extends NPC
+	
+	// TODO: rename to Girl from Princess
+	public class Princess extends NPC 
 	{
 		
 		public var type:int;
@@ -17,21 +18,21 @@ package npc
 			var graphicClass:Class;
 			switch(type) {
 				case 0:
-					graphicClass = Embed.princess1;
+					graphicClass = Embed.pinkGirl;
 					break;
 				case 1:
-					graphicClass = Embed.princess2;					
+					graphicClass = Embed.brownGirl;					
 					break;
 					
 				default:
-					graphicClass = Embed.princess1;
+					graphicClass = Embed.pinkGirl;
 					break;
 			}
 			
-			loadGraphic(graphicClass, true, false, 32, 32, false);
+			loadGraphic(graphicClass, true, false, 32, 48, false);
 			addAnimation("down", [0, 1, 2], 10.000, true);
 			addAnimation("left", [3, 4, 5], 10.000, true);
-			addAnimation("right", [6, 7], 10.000, true);
+			addAnimation("right", [6, 7, 8], 10.000, true);
 			addAnimation("up", [9, 10, 11], 10.000, true);
 			
 			immovable = true;

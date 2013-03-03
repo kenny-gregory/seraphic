@@ -314,12 +314,16 @@ package
 				master = null;
 				
 			sfx = null;
-			loopArray.splice(0);			
-			loopArray = null;
+			if(loopArray) {
+				loopArray.splice(0);			
+				loopArray = null;
+			}
 			interactions = null;
 			positions = null;
-			conversation.splice(0);
-			conversation = null;
+			if(conversation) {
+				conversation.splice(0);
+				conversation = null;
+			}
 			owner = null;
 			messagePosition = 0;
 			active = false;

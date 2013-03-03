@@ -18,15 +18,15 @@ package state
 		private var load:FlxButton;		
 		private var help:FlxButton;
 		
-		private var itemOffsetY:Number = 25;
+		private var itemOffsetY:Number = 35;
 		
 		override public function create():void {
 			super.create();
 			FlxG.mouse.show(null, 1);
 			title = new FlxSprite;
-			title.loadGraphic(Embed.menu_title, false, false, 250, 57, false);
-			title.x = FlxG.width / 2 - title.width / 2;
-			title.y = 30;			
+			title.loadGraphic(Embed.menu_title, false, false, 400, 300, false);
+			title.x = 0;
+			title.y = 0;			
 			menuText();			
 			menuListeners();
 			music();
@@ -52,7 +52,7 @@ package state
 			
 			
 			play.x = FlxG.width / 2 - play.width / 2;
-			play.y = FlxG.height / 3;
+			play.y = FlxG.height / 2.75;
 			options.x = FlxG.width / 2 - options.width / 2;
 			options.y = play.y + itemOffsetY;			
 			load.x = FlxG.width / 2 - load.width / 2;;

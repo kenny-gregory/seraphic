@@ -16,9 +16,9 @@ package state
 		override public function create():void {
 			super.create();
 			gameOver = new FlxSprite;
-			gameOver.loadGraphic(Embed.over_gameover, false, false, 250, 57, false);
-			gameOver.x = (FlxG.width / 2) - (gameOver.width / 2);
-			gameOver.y = FlxG.height / 2 - gameOver.height;
+			gameOver.loadGraphic(Embed.over_gameover, false, false, 400, 300, false);
+			gameOver.x = 0;
+			gameOver.y = 0;
 			add(gameOver);
 			music();
 		}

@@ -5,12 +5,14 @@ package
 	{	
 		
 		// enemy
-		[Embed(source = "../gfx/bluewizard.png")] public static const blueWizard:Class;
+		[Embed(source="../gfx/tealknight.png")] public static const tealKnight:Class;
 		[Embed(source = "../gfx/bat1.png")] public static const bat1:Class;
 		
 		// npc
-		[Embed(source = "../gfx/princess1.png")] public static const princess1:Class;
-		[Embed(source = "../gfx/princess2.png")] public static const princess2:Class;
+		[Embed(source = "../gfx/pinkgirl.png")] public static const pinkGirl:Class;
+		[Embed(source = "../gfx/purplegirl.png")] public static const purpleGirl:Class;
+		[Embed(source = "../gfx/browngirl.png")] public static const brownGirl:Class;
+		
 		
 		// tileset
 		[Embed(source = "../gfx/lostgarden.png")] public static const lostgarden:Class;

@@ -20,13 +20,11 @@ package player
 		{
 			super(X, Y, SimpleGraphic);
 			
-			loadGraphic(Embed.hero, true, false, 32, 32);
-			addAnimation("up", [0, 1, 2, 3, 4, 5, 6, 7, 8], 10, false);
-			addAnimation("down", [18, 19, 20, 21, 22, 23, 24, 25, 26], 10, false);
-			addAnimation("left", [9, 10, 11, 12, 13, 14, 15, 16, 17], 10, false);
-			addAnimation("right", [27, 28, 29, 30, 31, 32, 33, 34, 35], 10, false);
-			addAnimation("stand", [18], 0, false);
-			play("stand");
+			loadGraphic(Embed.hero, true, false, 32, 48);
+			addAnimation("down", [0, 1, 2], 10, false);
+			addAnimation("left", [3, 4, 5], 10, false);
+			addAnimation("right", [6, 7, 8], 10, false);
+			addAnimation("up", [9, 10, 11], 10, false);
 			
 			health = 100;
 			direction = FlxObject.DOWN;		

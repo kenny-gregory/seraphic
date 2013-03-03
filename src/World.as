@@ -36,7 +36,7 @@ package
 			FlxG.worldBounds = new FlxRect(0, 0, 2400, 1800);
 			FlxG.camera.setBounds(0, 0, 2400, 1800);
 			FlxG.camera.follow(Registry.player, FlxCamera.STYLE_TOPDOWN_TIGHT);			
-			FlxG.camera.zoom = 2;
+			FlxG.camera.zoom = 1;
 		}				
 		
 		private static function updateWorld():void {
