@@ -19,4 +19,10 @@
 <p>kenny@psycode.us (contact if you would like to contribute)</p>
 <br/>
 <br/>
+<h3>Notice: </h3><br/><br/>
+<p>
+Artwork is only placeholders and will abruptly be replaced by contribution or my personal team artist along the journey of development. 
+</p>
+<br/>
+<br/>
 <br/>
