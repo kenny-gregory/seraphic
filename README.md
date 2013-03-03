@@ -19,4 +19,11 @@
 <p>kenny@psycode.us (contact if you would like to contribute)</p>
 <br/>
 <br/>
+<h3>Notice: </h3>
+<p>
+Artwork is only placeholders and will abruptly be replaced by contribution or my personal team artist along the journey of development. With that being said please view with an open mind and do not base any of the progress off the current art. This game is currently in the state of what you see is what you get. 
+</p>
+<br/>
+<br/>
+<br/>
 <br/>
