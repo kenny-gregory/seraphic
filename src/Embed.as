@@ -45,6 +45,9 @@ package
 		// weapon
 		[Embed(source = "../gfx/plasmaballlpc_0.png")] public static const plasmaBall:Class;
 		
+		// inventory
+		[Embed(source = "../gfx/inventorybg.png")] public static const inventorybg:Class;
+		
 		//levels
 		Level1;
 		/*

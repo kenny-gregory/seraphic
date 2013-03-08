@@ -83,16 +83,18 @@ package state
 		}
 		
 		override public function update():void {
-			if (FlxG.keys.justPressed("ENTER")) {
-				// Dialog
-			}
+			if (FlxG.keys.justPressed("ESCAPE")) 
+				Inventory.enabled = !Inventory.enabled;
+				
+			Inventory.update();				
+				
 			if (paused)
 				return pausedGroup.update();
 				
 			super.update();		
 			World.update();
 			collision();
-			Hud.update();			
+			Hud.update();		
 		}
 		
 		override public function draw():void {
@@ -142,6 +144,7 @@ package state
 			Groups.destroy();
 			Dialog.destroy();
 			Hud.destroy();
+			Inventory.destroy();
 		}
 		
 	}//class

@@ -135,9 +135,6 @@ package
 				conversation = interactions[owner];
 			}
 			// if loop is defined set the message position according to the loop values
-			
-			trace("completed for this owner?: " + completedCycle[owner]);
-			
 			if (completedCycle[owner] && (loopArray && loopArray.length > 0))
 				message = conversation[ loopArray[positions[owner]] ];
 			else 
